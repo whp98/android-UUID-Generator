@@ -22,6 +22,7 @@ android {
         versionCode = version.getProperty("versionCode").toInt()
         versionName = version.getProperty("versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        setProperty("archivesBaseName", "uuidGenerator")
     }
     val signing = if (file(signFolder + "signing.properties").exists()) {
         signingConfigs.create("release") {
@@ -53,12 +54,6 @@ android {
         }
         abi {
             enableSplit = true
-        }
-    }
-    applicationVariants.all {
-        outputs.all {
-            (this as? com.android.build.gradle.internal.api.ApkVariantOutputImpl)
-                ?.outputFileName = "uuidGenerator.apk"
         }
     }
     compileOptions {
