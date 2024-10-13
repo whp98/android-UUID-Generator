@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">uuid生成器</string>
+    <string name="title_uuid">uuid生成</string>
+    <string name="title_introduce">介绍</string>
+    <string name="title_about">关于</string>
+    <string name="uuid_intro_text">
+        UUID（Universally Unique Identifier）简介\n
+        UUID（Universally Unique Identifier）是一种在分布式系统中唯一标识对象或实体的标准方法。\n
+        它是由一组128位数字组成的唯一标识符，通常表示为32个十六进制数字，分为5组，形式如下：\n
+        8192e7d4-1b44-11ec-a310-0242ac130003\n
+        UUID的特点\n
+        - 唯一性：每个UUID在全球范围内都是唯一的，几乎不可能出现重复的情况。\n
+        - 无序性：UUID的生成不依赖于时间顺序或任何特定的顺序。\n
+        - 跨平台性：UUID可以在不同的操作系统和编程语言之间共享。\n
+        - 持久性：一旦生成，UUID不会改变。\n
+        UUID的组成\n
+        UUID由128位（16字节）组成，通常表示为32个十六进制数字，分为5组：\n
+        - 第一组：32位（8个十六进制数）\n
+        - 第二组：16位（4个十六进制数）\n
+        - 第三组：16位（4个十六进制数）\n
+        - 第四组：16位（4个十六进制数）\n
+        - 第五组：48位（12个十六进制数）\n
+        UUID的版本\n
+        UUID有多种版本，常见的版本包括：\n
+        - Version 1：基于时间戳和MAC地址，格式为 {time_low}-{time_mid}-{time_hi_and_version}-{clock_seq_hi_and_reserved}{clock_seq_low}-{node}\n
+        - Version 3：基于名称和命名空间，使用MD5哈希算法。\n
+        - Version 4：基于随机数生成，是最常用的版本之一。\n
+        - Version 5：基于名称和命名空间，使用SHA-1哈希算法。\n
+        UUID的应用场景\n
+        1. 数据库记录：作为表中的唯一标识符。\n
+        2. 分布式系统：在分布式环境中唯一标识实体。\n
+        3. 文件系统：作为文件或目录的唯一标识符。\n
+        4. 网络通信：在网络通信中唯一标识消息或会话。\n
+        5. 软件开发：在多线程或多进程环境中生成唯一标识符。\n
+         总结\n
+        UUID是一种广泛使用的唯一标识符标准，具有高度的唯一性和跨平台性。\n
+        在各种应用场景中，UUID能够有效地解决唯一标识的问题，确保数据的一致性和可靠性。\n
+    </string>
+    <string name="about_url">
+        https://github.com/whp98/android-UUID-Generator
+    </string>
+</resources>
