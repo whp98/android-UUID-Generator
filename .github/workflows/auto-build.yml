@@ -72,20 +72,16 @@ jobs:
             const str=process.env.GITHUB_REF;
             return str.substring(str.indexOf("v"));
           result-encoding: string
-      # 上传至release的资源
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # 上传网址，无需改动
-          asset_path: app/build/outputs/apk/release/uuidGenerator-release.apk # 上传路径
-          asset_name: uuidGenerator-${{steps.get-version.outputs.result}}.apk # 资源名
-          asset_content_type: application/vnd.android.package-archiv #资源类型
+          files: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/bundle/*.abb
       # 存档打包的文件
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: app/build/outputs #将打包之后的文件全部上传（里面会有混淆的map文件）
+          path: app/build/ #将打包之后的文件全部上传（里面会有混淆的map文件）
