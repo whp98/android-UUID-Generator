@@ -22,7 +22,7 @@ jobs:
           java-version: 17
       # 获取打包秘钥
       - name: Checkout Android Keystore
-        uses: actions/checkout@v
+        uses: actions/checkout@v4
         with:
           repository: whp98/SignKey
           token: ${{ secrets.TOKEN }} # 连接仓库的token,需要单独配置
