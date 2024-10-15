@@ -30,34 +30,34 @@ app源码
 ```
 安卓源码
 ```text
-├── androidTest
+├── androidTest 安卓测试
 │   └── java
 │       └── work
 ├── main
-│   ├── AndroidManifest.xml
-│   ├── ic_launcher-playstore.png
-│   ├── java
+│   ├── AndroidManifest.xml 安卓配置文件
+│   ├── ic_launcher-playstore.png 谷歌商店图标
+│   ├── java app源代码
 │   │   └── work
-│   └── res
-│       ├── drawable
+│   └── res 资源文件
+│       ├── drawable 图标
 │       ├── drawable-anydpi
 │       ├── drawable-hdpi
 │       ├── drawable-mdpi
 │       ├── drawable-xhdpi
 │       ├── drawable-xxhdpi
-│       ├── layout
-│       ├── menu
+│       ├── layout 页面布局
+│       ├── menu 菜单
 │       ├── mipmap-anydpi-v26
 │       ├── mipmap-hdpi
 │       ├── mipmap-mdpi
 │       ├── mipmap-xhdpi
 │       ├── mipmap-xxhdpi
 │       ├── mipmap-xxxhdpi
-│       ├── navigation
-│       ├── values
-│       ├── values-night
-│       └── xml
-└── test
+│       ├── navigation 页面导航
+│       ├── values app字符串配置
+│       ├── values-night 夜间主题
+│       └── xml 安卓备份配置文件等
+└── test 单元测试
     └── java
         └── work
 ```
