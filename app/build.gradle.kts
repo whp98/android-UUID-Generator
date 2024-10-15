@@ -10,7 +10,6 @@ val signFolder = "../androidSign/androidSign/"
 val props =
     Properties().apply { load(file(signFolder + "signing.properties").reader()) }
 val keyStoreFile = file(signFolder + props.getProperty("storeFile"))
-
 android {
     namespace = "work.jsfr.uuidgenerator"
     compileSdk = 34
@@ -23,6 +22,7 @@ android {
         versionName = version.getProperty("versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "uuidGenerator")
+        setProperty("archivesBaseName", "$applicationId-$versionName-$versionCode-sdk-$minSdk-$targetSdk")
     }
     val signing = if (file(signFolder + "signing.properties").exists()) {
         signingConfigs.create("release") {
