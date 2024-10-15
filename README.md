@@ -1,7 +1,8 @@
 # uuid生成器
 
 如题
-
+## 自动构建
+[![Android CI RELEASE](https://github.com/whp98/android-UUID-Generator/actions/workflows/auto-build.yml/badge.svg)](https://github.com/whp98/android-UUID-Generator/actions/workflows/auto-build.yml)
 ## 项目结构
 
 项目目录
