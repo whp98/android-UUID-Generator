@@ -44,7 +44,7 @@ jobs:
         run: echo "${{steps.get-version-file-content.outputs.result}}" > ./version.properties
       # 打包release
       - name: Build with Gradle
-        run: bash ./gradlew assembleRelease
+        run: bash ./gradlew clean assembleRelease bundleRelease
       # 创建release
       - name: Create Release
         id: create_release
