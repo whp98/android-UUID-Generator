@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
@@ -46,15 +45,6 @@ android {
     }
     // 配置 App Bundle
     bundle {
-        language {
-            enableSplit = false
-        }
-        density {
-            enableSplit = false
-        }
-        abi {
-            enableSplit = true
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
