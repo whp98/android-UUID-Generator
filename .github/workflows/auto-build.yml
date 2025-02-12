@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: whp98/SignKey
+          ref: main
           token: ${{ secrets.TOKEN }} # 连接仓库的token,需要单独配置
           path: androidSign # 仓库的根目录名
       # 使用tag号刷新version
