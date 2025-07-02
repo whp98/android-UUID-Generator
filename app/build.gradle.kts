@@ -11,12 +11,12 @@ val props =
 val keyStoreFile = file(signFolder + props.getProperty("storeFile"))
 android {
     namespace = "work.jsfr.uuidgenerator"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "work.jsfr.uuidgenerator"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = version.getProperty("versionCode").toInt()
         versionName = version.getProperty("versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
