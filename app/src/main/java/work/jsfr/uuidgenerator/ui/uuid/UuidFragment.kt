@@ -34,8 +34,8 @@ class UuidFragment : Fragment() {
             textView.text = uuid
         }
         //生成按钮监听
-        val buttonGenerate: Button = binding.buttonGenerate
-        val buttonCopy: Button = binding.buttonCopy
+        val buttonGenerate = binding.buttonGenerate
+        val buttonCopy = binding.buttonCopy
         buttonGenerate.setOnClickListener {
             uuidViewModel.generateUuid()
         }
