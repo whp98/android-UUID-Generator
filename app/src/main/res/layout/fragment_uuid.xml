@@ -5,13 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="16dp"
     tools:context=".ui.uuid.UuidFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp">
 
         <!-- Card 1: Primary single UUID display card -->
         <com.google.android.material.card.MaterialCardView
