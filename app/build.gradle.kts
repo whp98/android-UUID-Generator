@@ -1,18 +1,32 @@
 import org.jetbrains.kotlin.konan.properties.Properties
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
 
-val defaultVersionCode = ChronoUnit.SECONDS.between(
-    Instant.EPOCH, // 1970-01-01T00:00:00Z
-    Instant.now()
-).toInt()
-val version = Properties().apply { load(file("../version.properties").reader()) }
+val versionFile = file("../version.properties")
+val version = Properties().apply { load(versionFile.reader()) }
+val currentVersionCode = version.getProperty("versionCode")?.trim()?.toIntOrNull() ?: 1792146368
+val currentVersionName = version.getProperty("versionName")?.trim() ?: "v2.0.0"
+
+val isReleasePackageTask = gradle.startParameter.taskNames.any { taskName ->
+    taskName.contains("Release", ignoreCase = true) &&
+        (taskName.contains("assemble", ignoreCase = true) ||
+            taskName.contains("bundle", ignoreCase = true) ||
+            taskName.contains("package", ignoreCase = true) ||
+            taskName.contains("publish", ignoreCase = true))
+}
+
+val resolvedVersionCode = if (isReleasePackageTask) {
+    val nextVersionCode = currentVersionCode + 1
+    versionFile.writeText("versionCode=$nextVersionCode\nversionName=$currentVersionName\n")
+    println("Incremented versionCode: $currentVersionCode -> $nextVersionCode")
+    nextVersionCode
+} else {
+    currentVersionCode
+}
+
 val signFolder = "../androidSign/androidSign/"
 val props =
     Properties().apply { load(file(signFolder + "signing.properties").reader()) }
@@ -25,8 +39,8 @@ android {
         applicationId = "work.jsfr.uuidgenerator"
         minSdk = 24
         targetSdk = 36
-        versionCode = defaultVersionCode
-        versionName = version.getProperty("versionName")
+        versionCode = resolvedVersionCode
+        versionName = currentVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "uuidGenerator")
         setProperty("archivesBaseName", "$applicationId-$versionName-$versionCode-sdk-$minSdk-$targetSdk")

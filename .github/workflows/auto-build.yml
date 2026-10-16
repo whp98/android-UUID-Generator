@@ -16,6 +16,9 @@ jobs:
     # 设置jdk环境为1.8
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.TOKEN }}
+          fetch-depth: 0
       - name: set up JDK 17
         uses: actions/setup-java@v1
         with:
@@ -28,33 +31,32 @@ jobs:
           ref: main
           token: ${{ secrets.TOKEN }} # 连接仓库的token,需要单独配置
           path: androidSign # 仓库的根目录名
-      # 使用tag号刷新version
-      - name: Get Version File Content
-        uses: actions/github-script@v3
-        id: get-version-file-content
-        with:
-          script: |
-            const str=process.env.GITHUB_REF;
-            const time = parseInt(new Date().getTime()/1000);
-            const tag = str.substring(str.indexOf("v"));
-            const res = `versionCode=${time}
-            versionName=${tag}`;
-            return res;
-          result-encoding: string
-      - name: version file overwrite
-        run: echo "${{steps.get-version-file-content.outputs.result}}" > ./version.properties
-      # 打包release
+      # 使用tag号刷新versionName（保留仓库维护的versionCode，由Gradle打包时自动+1并写回version.properties）
+      - name: Update versionName in version.properties
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          if [[ "$TAG" == v* ]]; then
+            sed -i "s/^versionName=.*/versionName=${TAG}/" ./version.properties
+          fi
+          cat ./version.properties
+      # 打包release（Gradle会自动将versionCode+1并写回./version.properties）
       - name: Build with Gradle
         run: bash ./gradlew clean assembleRelease bundleRelease
-      # 获取apk版本号
-      - name: Get Version Name
-        uses: actions/github-script@v3
-        id: get-version
-        with:
-          script: |
-            const str=process.env.GITHUB_REF;
-            return str.substring(str.indexOf("v"));
-          result-encoding: string
+      # 将自增后的version.properties提交回仓库维护
+      - name: Commit and Push Updated version.properties
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          UPDATED_VERSION_FILE=$(cat ./version.properties)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout -B main origin/main
+          printf "%s\n" "$UPDATED_VERSION_FILE" > ./version.properties
+          git add ./version.properties
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: bump version in version.properties [skip ci]"
+            git push origin main
+          fi
       - name: Test1
         run: ls -l app/build/outputs/apk/release/
       - name: Test2
